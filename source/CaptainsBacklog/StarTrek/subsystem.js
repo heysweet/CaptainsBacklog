@@ -1,0 +1,5 @@
+Subsystem = function() {
+
+}
+
+Subsystem.prototype = {};

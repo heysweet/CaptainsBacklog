@@ -1,4 +1,6 @@
 Shields = function(ship){
+	Subsystem.call(this, ship);
+
 	var self = this;
 
 	// Private Variables
@@ -32,8 +34,8 @@ Shields = function(ship){
 		if (ship.transferEnergy(energyChange)){
 			energy = value;
 
-			if (self.MAX_ENERGY < value){
-				var energyToPutBackToShip = value - self.MAX_ENERGY;
+			if (self.MAX_ENERGY < energy){
+				var energyToPutBackToShip = energy - self.MAX_ENERGY;
 				ship.transferEnergy(-energyToPutBackToShip);
 				energy = self.MAX_ENERGY;
 
@@ -50,29 +52,10 @@ Shields = function(ship){
 	}
 }
 
+Shields.prototype.constructor = Shields;
+
 Shields.prototype = {
 	// Define other function
-}
 
-Ship = function(){
-	var self = this;
-
-	var energy = 20000;
-
-	self.shields = new Shields(self);
-
-	self.getEnergy = function(){
-		return energy;
-	}
-
-	self.transferEnergy = function(value){
-		// If energy is at zero, it's game over
-		if (energy > value){
-			energy -= value;
-			return true;
-		} else {
-			return false;
-		}
-	}
 }
 

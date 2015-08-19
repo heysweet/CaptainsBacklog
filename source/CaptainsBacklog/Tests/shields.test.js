@@ -39,13 +39,13 @@ describe('shields', function() {
       expect(ship.shields.getEnergy()).toBe(4000);
     });
 
-    it('energy can be set on the shield', function() {
+    it('energy can be set on the shields', function() {
       ship.shields.setEnergy(1000);
 
       expect(ship.shields.getEnergy()).toBe(1000);
     });
 
-    it('energy can be transferred from the ship to the shield', function() {
+    it('energy can be transferred from the ship to the shields', function() {
       var shipStartingEnergy = 20000;
       var energyToTransfer = 100;
       var shieldStartingEnergy = ship.shields.getEnergy();
@@ -71,7 +71,7 @@ describe('shields', function() {
       expect(ship.getEnergy()).toBe(shipStartingEnergy);
     });
 
-    it('if you request more energy to the shield than the shield can hold, fill the shields and return remaining energy to the ship', function() {
+    it('if you request more energy to the shields than the shields can hold, fill the shields and return remaining energy to the ship', function() {
       spyOn(window, 'alert');
 
       var shipStartingEnergy = 20000;
