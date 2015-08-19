@@ -1,7 +1,8 @@
 Shields = function(ship){
-	Subsystem.call(this, ship);
-
 	var self = this;
+
+	Subsystem.call(self, ship);
+
 
 	// Private Variables
 	var isOnline = false;
@@ -47,15 +48,38 @@ Shields = function(ship){
 		}
 	}
 
+	self.depleteEnergy = function(energyLost){
+		energy -= energyLost;
+	}
+
 	self.getEnergy = function () {
 		return energy;
 	}
 }
 
 Shields.prototype = Object.create(Subsystem.prototype, {
-	// Define other function
 
+	// Define other function
+	convertStarDateToEnergy : function(stardates){
+		return stardates * 500;
+	},
+	getHit : function(starDateOfDamage){
+		var energy = this.convertStarDateToEnergy(starDateOfDamage);
+
+		// Absorb the damage if possible
+		if (energy <= this.getEnergy()){
+			this.depleteEnergy(energy);
+		} else {
+			var excessEnergy = energy - this.getEnergy();
+
+			this.depleteEnergy(this.getEnergy());
+
+			// Check for excess damage
+			if (excessEnergy > 0){
+				this.ship.damageSubsystem(excessEnergy);
+			}
+		}
+	}
 });
 
 Shields.prototype.constructor = Shields;
-

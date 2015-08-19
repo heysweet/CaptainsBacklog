@@ -8,5 +8,6 @@ Subsystem.prototype = {
 
 	doDamage: function(stardates){
 		this.setEnergy(3500);
-	}
+	},
+	foo : null
 };

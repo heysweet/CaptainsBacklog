@@ -19,3 +19,11 @@ Ship = function(){
 		}
 	}
 }
+
+Ship.prototype = {
+	getHit : function(starDateOfDamage){
+		if (this.shields.isOnline() && this.shields.getEnergy() > 0){
+			this.shields.getHit(starDateOfDamage);
+		}
+	}
+}
