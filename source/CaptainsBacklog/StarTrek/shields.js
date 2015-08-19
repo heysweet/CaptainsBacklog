@@ -21,6 +21,11 @@ Shields = function(ship){
 
 	/* energy */
 	this.setEnergy = function(value) {
+		if (value < 0){
+			alert('Scott says, "Shields energy cannot be set to a negative value!"');
+			return;
+		}
+
 		var energyChange = value - energy;
 
 		if (ship.transferEnergy(energyChange)){
@@ -66,7 +71,6 @@ Ship = function(){
 			energy -= value;
 			return true;
 		} else {
-			console.log('' + value + ' ' + energy);
 			return false;
 		}
 	}
