@@ -1,26 +1,27 @@
 Shields = function(ship){
+	var self = this;
+
+	// Private Variables
 	var isOnline = false;
 	var energy = 4000;
-	var MAX_ENERGY = 10000;
+
+	// Public Variables
+	self.MAX_ENERGY = 10000;
 
 	// Define variables and setters and getters
 
 	/* isOnline */
 
-	this.isOnline = function () {
+	self.isOnline = function () {
 		return isOnline;
 	}
 
-	this.setOnline = function (state) {
+	self.setOnline = function (state) {
 		isOnline = state;
 	}
 
-	this.getMaxEnergy = function(){
-		return MAX_ENERGY;
-	}
-
 	/* energy */
-	this.setEnergy = function(value) {
+	self.setEnergy = function(value) {
 		if (value < 0){
 			alert('Scott says, "Shields energy cannot be set to a negative value!"');
 			return;
@@ -31,10 +32,10 @@ Shields = function(ship){
 		if (ship.transferEnergy(energyChange)){
 			energy = value;
 
-			if (MAX_ENERGY < value){
-				var energyToPutBackToShip = value - MAX_ENERGY;
+			if (self.MAX_ENERGY < value){
+				var energyToPutBackToShip = value - self.MAX_ENERGY;
 				ship.transferEnergy(-energyToPutBackToShip);
-				energy = MAX_ENERGY;
+				energy = self.MAX_ENERGY;
 
 				alert('Scott says, "Too much energy requested!"');
 			}
@@ -44,28 +45,27 @@ Shields = function(ship){
 		}
 	}
 
-	this.getEnergy = function () {
+	self.getEnergy = function () {
 		return energy;
 	}
 }
 
 Shields.prototype = {
 	// Define other function
-	setEnergy: function(value){
-		this.energy()
-	}
 }
 
 Ship = function(){
+	var self = this;
+
 	var energy = 20000;
 
-	this.shields = new Shields(this);
+	self.shields = new Shields(this);
 
-	this.getEnergy = function(){
+	self.getEnergy = function(){
 		return energy;
 	}
 
-	this.transferEnergy = function(value){
+	self.transferEnergy = function(value){
 		// If energy is at zero, it's game over
 		if (energy > value){
 			energy -= value;

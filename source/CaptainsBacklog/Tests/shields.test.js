@@ -50,10 +50,10 @@ describe('shields', function() {
       var energyToTransfer = 100;
       var shieldStartingEnergy = ship.shields.getEnergy();
 
-      ship.shields.setEnergy(shieldStartingEnergy + energyToTransfer);
+      ship.shields.setEnergy(4100);
 
-      expect(ship.shields.getEnergy()).toBe(shieldStartingEnergy + energyToTransfer);
-      expect(ship.getEnergy()).toBe(shipStartingEnergy - energyToTransfer);
+      expect(ship.shields.getEnergy()).toBe(4100);
+      expect(ship.getEnergy()).toBe(19900);
     });
 
     it('energy can not be transferred from the ship to the shield if there is not enough energy in the ship\'s reserves', function() {
@@ -75,11 +75,10 @@ describe('shields', function() {
       spyOn(window, 'alert');
 
       var shipStartingEnergy = 20000;
-      var energyToSetOnShields = 11000; // Ship has enough energy to transfer, but this number is more than the shields can hold
       var shieldStartingEnergy = 4000;
+      var energyToSetOnShields = 11000; // Ship has enough energy to transfer, but this number is more than the shields can hold
 
-
-      var energyToTransfer = Math.min(ship.shields.getMaxEnergy(), energyToSetOnShields) - shieldStartingEnergy;
+      var energyToTransfer = ship.shields.MAX_ENERGY - shieldStartingEnergy;
 
       var shipsEndingEnergy = shipStartingEnergy - energyToTransfer;
 
@@ -88,18 +87,16 @@ describe('shields', function() {
 
       expect(window.alert).toHaveBeenCalledWith('Scott says, "Too much energy requested!"');
 
-      expect(ship.shields.getEnergy()).toBe(ship.shields.getMaxEnergy());
+      expect(ship.shields.getEnergy()).toBe(ship.shields.MAX_ENERGY);
       expect(ship.getEnergy()).toBe(shipsEndingEnergy);
     });
 
     it('if you set the shields energy to a lower (valid) value than it is currently at, it will transfer back to the ship', function() {
-      var shipStartingEnergy = 20000;
-      var energyToSetOnShields = 3000; // Ship has enough energy to transfer, but this number is more than the shields can hold
-      var shieldStartingEnergy = 4000;
 
-      ship.shields.setEnergy(energyToSetOnShields);
+      ship.shields.setEnergy(3000);
 
-      //energyToSetOnShields
+      // Ship starts at 20000 energy
+      // Shields start at 4000 energy
       expect(ship.shields.getEnergy()).toBe(3000);
       expect(ship.getEnergy()).toBe(21000);
     });
@@ -107,11 +104,7 @@ describe('shields', function() {
     it('if you set the shields energy to a negative value, it will be an invalid request', function() {
       spyOn(window, 'alert');
 
-      var shipStartingEnergy = 20000;
-      var energyToSetOnShields = -4000; // Ship has enough energy to transfer, but this number is more than the shields can hold
-      var shieldStartingEnergy = 4000;
-
-      ship.shields.setEnergy(energyToSetOnShields);
+      ship.shields.setEnergy(-4000);
 
       expect(window.alert).toHaveBeenCalledWith('Scott says, "Shields energy cannot be set to a negative value!"');
 
