@@ -59,7 +59,7 @@ Ship = function(){
 
 	var energy = 20000;
 
-	self.shields = new Shields(this);
+	self.shields = new Shields(self);
 
 	self.getEnergy = function(){
 		return energy;
