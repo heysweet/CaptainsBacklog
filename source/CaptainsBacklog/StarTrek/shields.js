@@ -52,10 +52,10 @@ Shields = function(ship){
 	}
 }
 
-Shields.prototype.constructor = Shields;
-
-Shields.prototype = {
+Shields.prototype = Object.create(Subsystem.prototype, {
 	// Define other function
 
-}
+});
+
+Shields.prototype.constructor = Shields;
 
