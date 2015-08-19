@@ -113,4 +113,23 @@ describe('shields', function() {
       expect(ship.getEnergy()).toBe(20000);
     });
   });
+
+  describe('shields can buckle', function() {
+    var ship;
+
+    beforeEach(function() {
+      ship = new Ship();
+    });
+
+    it('if our shield is online get hit, we lose the right amount of energy', function() {
+      var shieldsInitialEnergy = 4000;
+
+      ship.shields.setOnline(true);
+      ship.getHit(1);
+
+      // 500 to one conversion rate on stardates : energy
+      expect(ship.shields.getEnergy()).toBe(shieldsInitialEnergy - 500);
+    });
+  });
+
 });

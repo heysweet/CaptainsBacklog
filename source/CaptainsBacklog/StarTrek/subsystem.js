@@ -2,4 +2,6 @@ Subsystem = function() {
 
 }
 
-Subsystem.prototype = {};
+Subsystem.prototype = {
+	foo : null
+};
