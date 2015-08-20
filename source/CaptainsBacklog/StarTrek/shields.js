@@ -2,16 +2,22 @@ Shields = function(ship){
 	var self = this;
 
 	Subsystem.call(self, ship);
-	console.log('subsystem', Subsystem);
+
 	// Private Variables
 	var isOnline = false;
 	var energy = 4000;
+	var stardateDamage = 500;
 
 	// Public Variables
 	self.MAX_ENERGY = 10000;
 	self.ship = ship;
 
 	// Define variables and setters and getters
+
+	self.getStardateDamage = function() {
+		return stardateDamage;
+	}
+
 
 	/* isOnline */
 
@@ -57,35 +63,6 @@ Shields = function(ship){
 	}
 }
 
-// Shields.prototype =  {
-
-// 	// Define other function
-// 	convertStarDateToEnergy: function(stardates){
-// 		return stardates * 500;
-// 	},
-// 	convertEnergyToStarDate: function(energy){
-// 		return energy / 500;
-// 	},
-// 	getHit: function(starDateOfDamage){
-// 		var energy = this.convertStarDateToEnergy(starDateOfDamage);
-
-// 		// Absorb the damage if possible
-// 		if (energy <= this.getEnergy()){
-// 			this.depleteEnergy(energy);
-// 		} else {
-// 			var excessEnergy = energy - this.getEnergy();
-
-// 			this.depleteEnergy(this.getEnergy());
-
-// 			// Check for excess damage
-// 			if (excessEnergy > 0){
-// 				starDateOfDamage = this.convertEnergyToStarDate(excessEnergy);
-
-// 				this.ship.damageSubsystem(starDateOfDamage);
-// 			}
-// 		}
-// 	}
-// };
 Shields.prototype = Object.create(Subsystem.prototype, {
 
 	// Define other function
