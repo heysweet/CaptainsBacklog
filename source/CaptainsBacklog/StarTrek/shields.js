@@ -3,13 +3,13 @@ Shields = function(ship){
 
 	Subsystem.call(self, ship);
 
-
 	// Private Variables
 	var isOnline = false;
 	var energy = 4000;
 
 	// Public Variables
 	self.MAX_ENERGY = 10000;
+	self.ship = ship;
 
 	// Define variables and setters and getters
 
@@ -62,6 +62,9 @@ Shields.prototype = {
 	convertStarDateToEnergy : function(stardates){
 		return stardates * 500;
 	},
+	convertEnergyToStarDate : function(energy){
+		return energy / 500;
+	},
 	getHit : function(starDateOfDamage){
 		var energy = this.convertStarDateToEnergy(starDateOfDamage);
 
@@ -75,7 +78,9 @@ Shields.prototype = {
 
 			// Check for excess damage
 			if (excessEnergy > 0){
-				this.ship.damageSubsystem(excessEnergy);
+				starDateOfDamage = this.convertEnergyToStarDate(excessEnergy);
+
+				this.ship.damageSubsystem(starDateOfDamage);
 			}
 		}
 	}
