@@ -114,14 +114,14 @@ describe('shields', function() {
     });
   });
 
-  describe('shields can buckle', function() {
+  describe('shields take damage', function() {
     var ship;
 
     beforeEach(function() {
       ship = new Ship();
     });
 
-    it('if our shield is online get hit, we lose the right amount of energy', function() {
+    it('if our shield is online and gets hit, we lose the right amount of energy', function() {
       var shieldsInitialEnergy = 4000;
 
       ship.shields.setOnline(true);
@@ -130,6 +130,23 @@ describe('shields', function() {
       // 500 to one conversion rate on stardates : energy
       expect(ship.shields.getEnergy()).toBe(shieldsInitialEnergy - 500);
     });
-  });
 
+    it('if our shield is online and gets hit for more energy than it has, the shield will pass the excess damage to the ship', function() {
+      spyOn(ship, 'damageSubsystem');
+
+      var shieldsInitialEnergy = 4000;
+
+      ship.shields.setOnline(true);
+      ship.getHit(9);
+
+      expect(ship.damageSubsystem).toHaveBeenCalledWith(1);
+    });
+
+    it('if our shield is offline and our ship is hit, the shield will not absorb energy', function() {
+      spyOn(ship, 'damageSubsystem');
+      ship.getHit(1);
+
+      expect(ship.damageSubsystem).toHaveBeenCalledWith(1);
+    });
+  });
 });
