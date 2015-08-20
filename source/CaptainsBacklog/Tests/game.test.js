@@ -12,6 +12,7 @@ describe('game', function() {
 
 		it("should repair subsystems after resting", function(){
 			//Reduce subsystem's energy
+			console.log('ship', ship);
 			ship.shields.doDamage(1);
 
 			expect(ship.shields.getEnergy()).toBe(3500);

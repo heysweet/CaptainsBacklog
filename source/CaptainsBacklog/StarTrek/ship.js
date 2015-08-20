@@ -22,6 +22,8 @@ Ship = function(){
 
 Ship.prototype = {
 	getHit : function(starDateOfDamage){
+		console.log('shields', this.shields);
+		console.log('self shields', self.shields);
 		if (this.shields.isOnline() && this.shields.getEnergy() > 0){
 			this.shields.getHit(starDateOfDamage);
 		} else {
